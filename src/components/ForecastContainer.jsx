@@ -21,7 +21,7 @@ class ForecastContainer extends React.Component {
             temp: item.main.temp,
             dt: item.dt,
             date: item.dt_txt,
-            imgID: item.weather[0].icon,
+            imgId: item.weather[0].id,
             desc: item.weather[0].description,
           }));
         this.setState(({ 
@@ -46,7 +46,7 @@ class ForecastContainer extends React.Component {
         <div>Forecast Container</div>
         <DegreeToggle />
         {!loading 
-            ? data.map((item) => (<DayCard />)) 
+            ? data.map((item) => (<DayCard key={item.dt} data={item} />)) 
             : <div>Loading...</div>
         }
       </>
