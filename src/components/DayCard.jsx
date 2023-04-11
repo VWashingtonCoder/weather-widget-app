@@ -6,8 +6,7 @@ const DayCard = ({ data }) => {
 
     const newDate = new Date();
     newDate.setTime(dt * 1000);
-    console.log(imgId)
-    const icon = `owf owf-${imgId} owf-5x`
+    const icon = `owf owf-${imgId} owf-5x`;
 
     return (
         <div className="col-sm-2">
