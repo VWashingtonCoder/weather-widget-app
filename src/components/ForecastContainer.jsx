@@ -42,14 +42,18 @@ class ForecastContainer extends React.Component {
   render() {
     const { loading, error, data } = this.state;
     return (
-      <>
-        <div>Forecast Container</div>
+      <div className="container mt-5">
+        <h1 className="display-1 jumbotron bg-secondary py-5 mb-5">5-Day Forecast</h1>
+        <h5  className="text-muted">Pueblo, Colorado USA</h5>
         <DegreeToggle />
-        {!loading 
-            ? data.map((item) => (<DayCard key={item.dt} data={item} />)) 
-            : <div>Loading...</div>
-        }
-      </>
+        <div className="row justify-content-center">
+            {!loading 
+                ? data.map((item) => (<DayCard key={item.dt} data={item} />)) 
+                : <div>Loading...</div>
+            }
+        </div>
+        {error && <h3 className="text-danger">Error loading data</h3>}
+      </div>
     );
   }
 }
