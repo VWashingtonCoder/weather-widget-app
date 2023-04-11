@@ -8,6 +8,8 @@ class ForecastContainer extends React.Component {
     data: [],
     loading: false,
     error: false,
+    degreeType: "fahrenheit",
+    speedType: "mph"
   };
   async componentDidMount() {
     this.setState(({ loading: true }))
@@ -23,6 +25,9 @@ class ForecastContainer extends React.Component {
             date: item.dt_txt,
             imgId: item.weather[0].id,
             desc: item.weather[0].description,
+            feelsLike: item.main.feels_like,
+            humidity: item.main.humidity,
+            windSpeed:item.wind.speed
           }));
         this.setState(({ 
             data: data,
@@ -38,17 +43,34 @@ class ForecastContainer extends React.Component {
       console.error("There was an error: ", err);
     }
   }
+  updateForecastDegree = ({ target: { value } }) => {
+    this.setState(({ degreeType: value }));
+  }
+  updateWindSpeedType = ({ target: { value } }) => {
+    this.setState(({ speedType: value }));
+  }
 
   render() {
-    const { loading, error, data } = this.state;
+    const { loading, error, data, degreeType, speedType } = this.state;
     return (
       <div className="container mt-5">
         <h1 className="display-1 jumbotron bg-secondary py-5 mb-5">5-Day Forecast</h1>
         <h5  className="text-muted">Pueblo, Colorado USA</h5>
-        <DegreeToggle />
+        <DegreeToggle 
+            updateForecastDegree={this.updateForecastDegree}  
+            degreeType={degreeType}
+        />
         <div className="row justify-content-center">
             {!loading 
-                ? data.map((item) => (<DayCard key={item.dt} data={item} />)) 
+                ? data.map((item) => (
+                    <DayCard 
+                        key={item.dt} 
+                        data={item} 
+                        degreeType={degreeType}
+                        speedType={speedType}
+                        updateWindSpeedType={this.updateWindSpeedType}
+                    />
+                )) 
                 : <div>Loading...</div>
             }
         </div>
