@@ -19,9 +19,9 @@ class WeatherService {
               humidity: item.main.humidity,
               windSpeed: item.wind.speed,
             }));
-            success({ resp, data });
+          success({ resp, data });
         } else {
-            fail({ error: "Invalid http request" });
+          fail({ error: "Invalid http request" });
         }
       } catch (err) {
         fail(err);
